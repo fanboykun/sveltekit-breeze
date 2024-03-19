@@ -1,14 +1,8 @@
 import { fail, type Action, type Actions, redirect } from "@sveltejs/kit";
-import type { PageServerLoad } from "./$types";
 import { createUser } from "$lib/server/functions/user";
 import { createUserValidation } from "$lib/validation";
 import { createUserSession } from "$lib/server/utils/session";
 
-export const load:PageServerLoad = async (event) => {
-    if (event.locals.session) {
-        redirect(302, "/dashboard");
-    }
-}
 
 const register: Action = async ({ cookies, request }) => {
     const data = await request.formData();

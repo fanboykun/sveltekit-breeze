@@ -2,12 +2,23 @@
     import { Input } from "$lib/components/ui/input/index.js";
     import { Label } from "$lib/components/ui/label/index.js";
     import { Button } from "$lib/components/ui/button";
-	import InputError from "$lib/components/ui/InputError.svelte";
+	  import InputError from "$lib/components/ui/InputError.svelte";
     import type { PageData, ActionData } from './$types';
-	import { enhance } from "$app/forms";
+	  import { enhance } from "$app/forms";
+	import { onMount } from "svelte";
+	import { goto } from "$app/navigation";
 
-	  export let data: PageData;
+	  // export let data: PageData;
     export let form: ActionData;
+
+    onMount(async() => {
+      const url = window.location.pathname
+      if (url.endsWith('/') && url !== '/') {
+            const newPath = url.slice(0, -1);
+            console.log(url, newPath)
+            await goto(newPath);
+        }
+    })
 
   </script>
   

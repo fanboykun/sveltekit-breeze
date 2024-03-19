@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
-	import Button from "./ui/button/button.svelte";
 	import type { User } from 'lucia';
+    import { Button } from "$lib/components/ui/button";
     export let user:User|null
 </script>
 
@@ -13,8 +13,10 @@
             <Button variant="outline" type="submit" class="bg-transparent text-slate-900 border-slate-900">Logout</Button>
         </form>
         {:else}
-        <Button variant="link" href="/register" class="text-slate-900 bg-white" >Register</Button>
-        <Button variant="link" href="/login" class="text-slate-900 bg-white">Login</Button>
+        <form action="?/gotoLogin" method="post" use:enhance>
+            <Button variant="ghost" type="submit" class="text-slate-900 hover:bg-white">Login</Button>
+            <Button variant="ghost" type="submit" formaction="?/gotoRegister" class="text-slate-900 hover:bg-white" >Register</Button>
+        </form>
         {/if}
     </div>
 </div>
