@@ -29,7 +29,7 @@
             <InputError messages={form?.message} />
             <div class="flex justify-between items-center w-full max-w-sm">
                 <div class="flex flex-col">
-                    <a href="/register" class="text-sm text-slate-600">Haven' registered? Register Instead</a>
+                    <a href="/register" class="text-sm text-slate-600">Haven't registered? Register Instead</a>
                 </div>
                 <Button type="submit">Login</Button>
             </div>
