@@ -23,7 +23,7 @@
   </script>
   
   <div class="max-w-screen-sm w-full bg-white rounded-xl p-8 flex flex-col items-center justify-center shadow-lg">
-      <h2 class="text-xl py-4 font-semibold">Login To Your Account</h2>
+      <h2 class="text-xl py-4 font-semibold">Create an Account</h2>
       <form class="w-full" method="POST" action="?/register" use:enhance>
           <div class="flex flex-col items-center space-y-4 w-full">
               <div class="grid w-full max-w-sm items-center gap-1.5">
