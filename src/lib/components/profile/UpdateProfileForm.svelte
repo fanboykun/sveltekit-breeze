@@ -12,8 +12,8 @@
     export let authUser: User|null
 
 </script>
-<div style="flex: 48.2 1 0px; overflow: hidden;">
-    <div class="flex h-full flex-col">
+<div class="flex w-full overflow-hidden">
+    <div class="flex h-full w-full flex-col">
 
         <div class="w-full py-4 px-8">
             <form class="w-full" method="POST" action="?/updateUserProfile" use:enhance>

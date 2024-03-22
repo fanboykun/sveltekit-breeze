@@ -1,7 +1,12 @@
 import type { User } from "@prisma/client";
-import db from '../utils/prisma'
-import { generateId } from "lucia";
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { generateId, type User as UserLucia } from "lucia";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Argon2id } from "oslo/password";
+
+import db from '../utils/prisma'
+import { v4 as uuid } from "uuid";
 
 export type createUserDto = {
     email: string;
@@ -12,7 +17,10 @@ export type createUserDto = {
 export const createUser = async (data: createUserDto): Promise<User|null> => {
     try {
         const hashed_password = await new Argon2id().hash(data.password);
-        const userId = generateId(15);
+        // const userId = generateId(15);
+
+        // const hashed_password = await bcrypt.hash(data.password, SALT_NUMBER);
+        const userId = uuid();
         const newUser = await db.user.create({
             data: {
                 id: userId, // Add the id property here
@@ -73,5 +81,55 @@ export const updateUserProfileInformation = async(data:FormData, id: string) : P
     } catch(err) {
         console.log(err)
         return null
+    }
+}
+
+export const getUserPassword = async (user: UserLucia) => {
+    try {
+        const userPassword = await db.user.findFirst({
+            select: {
+                hashed_password: true,
+            },
+            where: {
+                id: user.id
+            }
+        })
+        return userPassword
+    } catch(err) {
+        console.log(err)
+        return null
+    }
+}
+
+export const updateUserHashedPassword = async (id: string, password: string) => {
+    try {
+        const newHashedPassword = await new Argon2id().hash(password);
+        // const newHashedPassword = await bcrypt.hash(password, SALT_NUMBER);
+        const updatedUserPassword = await db.user.update({
+            where: {
+                id: id
+            },
+            data: {
+                hashed_password: newHashedPassword
+            }
+        })
+        return updatedUserPassword
+    } catch(err) {
+        console.log(err)
+        return null
+    }
+}
+
+export const deleteUser = async(userId: string) : Promise<boolean> => {
+    try {
+        await db.user.delete({
+            where: {
+                id: userId
+            }
+        })
+        return true
+    } catch(err) {
+        console.log(err)
+        return false
     }
 }

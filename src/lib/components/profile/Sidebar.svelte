@@ -2,9 +2,9 @@
     import { page } from "$app/stores";
 </script>
 
-<div class="flex flex-col w-[250px] max-w-[300px]" >
+<div class="flex flex-col w-[250px!important] min-h-[calc(100svh-65px)]" >
 
-    <div data-collapsed="false" class="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2">
+    <div data-collapsed="false" class="group flex flex-col gap-4 py-2">
         <nav class="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2" >
             <a
                 href="/dashboard"
