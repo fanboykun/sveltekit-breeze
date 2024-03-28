@@ -38,6 +38,43 @@ export const createUser = async (data: createUserDto): Promise<User|null> => {
 
 }
 
+export const getAllUsers = async() => {
+    try {
+        const users = await db.user.findMany({
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                role: true,
+            }
+        });
+        return users
+    } catch(err) {
+        console.log(err);
+        return null;
+    }
+}
+
+export const getLatestUsers = async () => {
+    try {
+        const users = await db.user.findMany({
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                role: true,
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            take: 5
+        });
+        return users
+    } catch(err) {
+        console.log(err);
+        return null;
+    }
+}
 
 export const findUser = async(data: FormData) : Promise<User | null> => {
     try {

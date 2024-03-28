@@ -18,6 +18,7 @@ const prisma = new PrismaClient();
             id: userId,
             email: 'admin@gmail.com',
             name: 'Sabin Adams',
+            role: 'ADMIN',
             hashed_password: hashed_password,
         },
       });
