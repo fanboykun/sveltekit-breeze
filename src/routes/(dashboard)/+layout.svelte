@@ -1,7 +1,6 @@
 <script lang="ts">
-	import Separator from '$lib/components/profile/Separator.svelte';
+	import Separator from '$lib/components/pages/profile/Separator.svelte';
 	import Sidebar from '$lib/components/layouts/dashboard/Sidebar.svelte';
-    import * as Sheet from "$lib/components/ui/sheet";
 	import TopNavigation from '$lib/components/layouts/dashboard/TopNavigation.svelte';
     export let data
 </script>

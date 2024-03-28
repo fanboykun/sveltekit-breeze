@@ -17,6 +17,6 @@
 
 </script>
 
-<Toaster />
+<Toaster closeButton />
 
 <slot />

@@ -4,7 +4,7 @@
 	import Button from "$lib/components/ui/button/button.svelte";
 	import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 	import { browser } from "$app/environment";
-	import { createGradientAvatar } from '$lib/client/utils'
+	import { capitalizeFirstLetter, createGradientAvatar } from '$lib/client/utils'
     import * as Sheet from "$lib/components/ui/sheet";
 	import Sidebar from "./Sidebar.svelte";
     
@@ -59,7 +59,7 @@
                             <Button variant="outline" class="w-full border-none" type="button">{user?.email}</Button>
                         </DropdownMenu.Label>
                         <DropdownMenu.Label class="p-0">
-                            <Button variant="outline" class="w-full border-none" type="button">{user?.role?.toLowerCase()}</Button>
+                            <Button variant="outline" class="w-full border-none" type="button">{ capitalizeFirstLetter(user?.role) }</Button>
                         </DropdownMenu.Label>
                         <DropdownMenu.Item class="p-0">
                             <form action="/logout" method="post" class="w-full" use:enhance>

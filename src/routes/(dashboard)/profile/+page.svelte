@@ -1,7 +1,7 @@
 <script lang="ts">
-	import DeleteAccount from '$lib/components/profile/DeleteAccount.svelte';
-	import UpdatePassword from '$lib/components/profile/UpdatePassword.svelte';
-	import UpdateProfile from '$lib/components/profile/UpdateProfile.svelte';
+	import DeleteAccount from '$lib/components/pages/profile/DeleteAccount.svelte';
+	import UpdatePasswordForm from '$lib/components/pages/profile/UpdatePasswordForm.svelte';
+	import UpdateProfileForm from '$lib/components/pages/profile/UpdateProfileForm.svelte';
 	import type { ActionData, PageData } from './$types';
 
 	export let form: ActionData;
@@ -11,8 +11,8 @@
 
 <div class="bg-gray-50 w-full h-full">
 
-	<UpdateProfile authUser={data.authUser} {form} />
-	<UpdatePassword {form} />
-	<DeleteAccount {form} />
+	<UpdateProfileForm authUser={data.authUser} {form} />
+	<UpdatePasswordForm {form} />
+	<DeleteAccount {form}  />
 
 </div>

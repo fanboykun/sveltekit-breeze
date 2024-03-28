@@ -9,10 +9,10 @@
 <div class="h-full bg-gray-50">
 	<div class="px-8 pt-4 pb-2 bg-gray-50">
 		<h3 class="text-lg font-medium">Dashboard</h3> 
-		<p class="text-sm text-muted-foreground">Summary of your application</p>
+		<p class="text-sm text-muted-foreground">Summary of your application. (Example of a dashboard card stats)</p>
 	</div>
 
-
+	<!-- Example of a dashboard card stats -->
 	<div class="px-4 py-2 ">
 		<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 			<div class="rounded-xl border bg-card text-card-foreground shadow">

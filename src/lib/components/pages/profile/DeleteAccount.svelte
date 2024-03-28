@@ -1,26 +1,20 @@
 <script lang="ts">
-	import type { User } from "@prisma/client";
-	import Separator from "./Separator.svelte";
-	import SideContent from "./SideContent.svelte";
-	import type { ActionData } from "../../../routes/(dashboard)/profile/$types";
-	import Button from "../ui/button/button.svelte";
 	import { enhance } from "$app/forms";
-	import Label from "../ui/label/label.svelte";
+	import type { ActionData } from "../../../../routes/(dashboard)/profile/$types";
+
+	import Button from "$lib/components/ui/button/button.svelte";
+	import Label from "$lib/components/ui/label/label.svelte";
 	import DeleteAccountConfirmation from "./DeleteAccountConfirmation.svelte";
+    
+    import { toast } from "svelte-sonner";
 
     export let form: ActionData
 
-    let accountDeletionFail = {
-        fail: false,
-        message: ''
-    }
     $: {
         if(form?.accountDeletion?.success === false) {
-            accountDeletionFail.fail = true
-            accountDeletionFail.message = form?.accountDeletion?.message
-            setTimeout(() => {
-                accountDeletionFail.fail = false
-            }, 5000)
+            toast.error("Account deletion failed", {
+                description: form?.accountDeletion?.message,
+            })
         }
     }
 </script>
@@ -44,9 +38,6 @@
                             <div class="flex justify-start items-center w-full ">
                                 <DeleteAccountConfirmation>
                                     <Button type="button" variant="destructive">Delete</Button>
-                                    {#if accountDeletionFail.fail}
-                                        <span class="ml-2 text-red-500 font-semibold text-md">{accountDeletionFail.message}</span>
-                                    {/if}
                                 </DeleteAccountConfirmation>
                             </div>
                         </div>

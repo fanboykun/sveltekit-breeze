@@ -2,11 +2,11 @@
 
 	import { enhance } from "$app/forms";
 	import type { User } from "@prisma/client";
-	import Button from "../ui/button/button.svelte";
-	import Input from "../ui/input/input.svelte";
-	import Label from "../ui/label/label.svelte";
-	import type { ActionData } from "../../../routes/(dashboard)/profile/$types";
-	import InputError from "../ui/InputError.svelte";
+	import Button from "$lib/components/ui/button/button.svelte";
+	import Input from "$lib/components/ui/input/input.svelte";
+	import Label from "$lib/components/ui/label/label.svelte";
+	import InputError from "$lib/components/ui/InputError.svelte";
+	import type { ActionData } from "../../../../routes/(dashboard)/profile/$types";
 
     export let form: ActionData
 </script>
