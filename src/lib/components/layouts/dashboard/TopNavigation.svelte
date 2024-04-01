@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
 	import type { User } from "lucia";
+    import { beforeNavigate } from "$app/navigation";
 	import Button from "$lib/components/ui/button/button.svelte";
 	import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 	import { browser } from "$app/environment";
@@ -9,6 +10,12 @@
 	import Sidebar from "./Sidebar.svelte";
     
     export let user: User|null
+    
+    let sidebarOpen = false
+    beforeNavigate(() => {
+        sidebarOpen = false
+    })
+
 </script>
 <div class="border-b">
 	<div class="flex h-16 items-center px-4">
@@ -71,13 +78,13 @@
                 </DropdownMenu.Root>
             {/if}
 		</div>
-        <Sheet.Root>
+        <Sheet.Root bind:open={sidebarOpen}>
             <Sheet.Trigger class="block md:hidden ml-4">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-slate-900">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>                  
             </Sheet.Trigger>
-            <Sheet.Content side="left" class="w-2/3 sm:w-1/3">
+            <Sheet.Content  side="left" class="w-2/3 sm:w-1/3">
                 <Sidebar isMobile={true} />
             </Sheet.Content>
         </Sheet.Root>

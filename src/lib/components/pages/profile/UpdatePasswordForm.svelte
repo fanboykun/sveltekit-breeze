@@ -10,8 +10,8 @@
 
     export let form: ActionData
 </script>
-<div class="flex w-full overflow-hidden">
-    <div class="flex h-full w-full flex-col">
+<div class="flex w-full max-w-screen-md h-fit border-b pt-4 pb-6 px-4 flex-col">
+    <div class="flex h-full w-full flex-col bg-white rounded-xl">
 
         <div class="w-full py-4 px-8">
             <form class="w-full" method="POST" action="?/updateUserPassword" use:enhance>
