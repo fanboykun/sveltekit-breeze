@@ -1,8 +1,15 @@
 <script lang="ts">
-	import { messageToArray } from "$lib/validation";
 	import type { validated } from "ts-input-validator";
 
     export let messages: validated|string
+    
+    const messageToArray = (message: validated) => {
+        const m = []
+        for (const key in message) {
+            m.push(message[key]);
+        }
+        return m;
+    }
 </script>
 <p class="text-sm text-red-500">
     {#if typeof messages === "string"}

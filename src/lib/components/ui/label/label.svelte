@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Label as LabelPrimitive } from "bits-ui";
-	import { cn } from "$lib/components/shadcn-utils";
+	import { cn } from "$lib/components/shadcn-utils.js";
 
 	type $$Props = LabelPrimitive.Props;
 

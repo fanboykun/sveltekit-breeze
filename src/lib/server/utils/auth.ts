@@ -18,6 +18,7 @@ export const lucia = new Lucia(adapter, {
             id: attributes.id,
             name: attributes?.name,
             email: attributes.email,
+            role: attributes.role,
         };
     }
 });
@@ -33,4 +34,5 @@ interface DatabaseUserAttributes {
     id: string;
     name?: string;
     email: string;
+    role: string;
 }
