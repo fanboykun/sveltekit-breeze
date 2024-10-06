@@ -7,7 +7,7 @@
 <svelte:head>
     <title>Dashboard Sveltekit Breeze</title>
 </svelte:head>
-    
+
     <TopNavigation user={data.user} />
 
     <section class="flex h-full min-h-[calc(100svh-200px)] max-h-full">

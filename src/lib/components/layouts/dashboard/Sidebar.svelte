@@ -3,7 +3,7 @@
     export let isMobile = false
 </script>
 
-<div class="flex flex-col {isMobile ? 'w-full' : 'w-[250px!important]' }  min-h-[calc(100svh-65px)]" >
+<div class="flex flex-col {isMobile ? 'w-full' : 'w-[250px!important]' }  min-h-[calc(100svh-65px)] mt-4" >
 
     <div data-collapsed="false" class="group flex flex-col gap-4 py-2">
         <nav class="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2" >

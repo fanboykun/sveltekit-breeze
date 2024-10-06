@@ -1,5 +1,5 @@
 import { Argon2id } from "oslo/password"
-import { Validator, type finalValidationResult, type validateType } from "ts-input-validator"
+import { Validator, type finalValidationResult, type validated, type validateType } from "ts-input-validator"
 
 export const createUserValidation = (data: FormData) : finalValidationResult => {
     const email = data.get('email')
@@ -43,25 +43,29 @@ export const updateUserProfileValidation = (data: FormData) : finalValidationRes
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const updateUserProfilePasswordValidation = async (data: FormData, existsing_password: string): Promise<finalValidationResult> => {
-    const old_password = data.get('old_password')
-    const new_password = data.get('new_password')
-    const confirm_new_password = data.get('confirm_new_password')
+    const old_password = String(data.get('old_password') ?? '')
+    const new_password = String(data.get('new_password') ?? '')
+    const confirm_new_password = String(data.get('confirm_new_password') ?? '')
 
     const validationInput: validateType[] = [
         { data: old_password, key: 'old_password', rules: ['required'] },
-        { data: new_password, key: 'name', rules: ['required', 'string', `equalTo:${confirm_new_password}`] },
+        { data: new_password, key: 'new_password', rules: ['required', 'string'] },
+        { data: confirm_new_password, key: 'confirm_new_password', rules: ['required', 'string', `equalTo:${new_password}`], message:
+            { equalTo: 'Password confirmation did not match with new password' }
+        },
     ]
     const validationResult =  Validator.validate(validationInput)
-
     if(old_password != null) {
         const isPasswordMatch = await new Argon2id().verify(existsing_password, old_password as string)
-        // const isPasswordMatch = await bcrypt.compare(existsing_password, old_password as string)
-    
-        if( validationResult[0] || !isPasswordMatch ) {
+        if( validationResult[0] as boolean || !isPasswordMatch ) {
             if(!isPasswordMatch) {
-                if(validationResult[1] == null) validationResult[1] = {}
-                validationResult[1].old_password.valid = false
-                validationResult[1].old_password.message = { 'equalTo': 'Old Password Did not match' }
+                const vOldP: validated = {
+                    old_password: {
+                        valid: false,
+                        message: { 'equalTo': 'Old Password Did not match' } 
+                    }
+                }
+                validationResult[1] = {...validationResult[1], ...vOldP}
             } 
         } 
     }

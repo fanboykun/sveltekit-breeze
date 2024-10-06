@@ -1,5 +1,3 @@
-import type { User } from "@prisma/client";
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { generateId, type User as UserLucia } from "lucia";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -7,19 +5,11 @@ import { Argon2id } from "oslo/password";
 
 import db from '../utils/prisma'
 import { v4 as uuid } from "uuid";
+import type { Prisma } from "@prisma/client";
 
-export type createUserDto = {
-    email: string;
-    name: string;
-    password: string;
-} 
-
-export const createUser = async (data: createUserDto): Promise<User|null> => {
+export const createUser = async (data: Omit<Prisma.UserCreateInput, "hashed_password"> & { password: string }) => {
     try {
         const hashed_password = await new Argon2id().hash(data.password);
-        // const userId = generateId(15);
-
-        // const hashed_password = await bcrypt.hash(data.password, SALT_NUMBER);
         const userId = uuid();
         const newUser = await db.user.create({
             data: {
@@ -76,7 +66,7 @@ export const getLatestUsers = async () => {
     }
 }
 
-export const findUser = async(data: FormData) : Promise<User | null> => {
+export const findUser = async(data: FormData) => {
     try {
         const user = await db.user.findFirst({
             where: {
@@ -90,7 +80,7 @@ export const findUser = async(data: FormData) : Promise<User | null> => {
     }
 }
 
-export const findUserById = async(id: string) : Promise<User | null> => {
+export const findUserById = async(id: string) => {
     try {
         const user = await db.user.findFirst({
             where: {
@@ -104,7 +94,7 @@ export const findUserById = async(id: string) : Promise<User | null> => {
     }
 }
 
-export const updateUserProfileInformation = async(data:FormData, id: string) : Promise<User | null> => {
+export const updateUserProfileInformation = async(data:FormData, id: string) => {
     try {
         const user = await db.user.update({
             where: {
@@ -141,7 +131,6 @@ export const getUserPassword = async (user: UserLucia) => {
 export const updateUserHashedPassword = async (id: string, password: string) => {
     try {
         const newHashedPassword = await new Argon2id().hash(password);
-        // const newHashedPassword = await bcrypt.hash(password, SALT_NUMBER);
         const updatedUserPassword = await db.user.update({
             where: {
                 id: id
@@ -157,7 +146,7 @@ export const updateUserHashedPassword = async (id: string, password: string) => 
     }
 }
 
-export const deleteUser = async(userId: string) : Promise<boolean> => {
+export const deleteUser = async(userId: string) => {
     try {
         await db.user.delete({
             where: {

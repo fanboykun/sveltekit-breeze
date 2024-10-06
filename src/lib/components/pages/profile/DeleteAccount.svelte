@@ -1,22 +1,8 @@
 <script lang="ts">
-	import { enhance } from "$app/forms";
-	import type { ActionData } from "../../../../routes/(dashboard)/profile/$types";
-
 	import Button from "$lib/components/ui/button/button.svelte";
 	import Label from "$lib/components/ui/label/label.svelte";
 	import DeleteAccountConfirmation from "./DeleteAccountConfirmation.svelte";
-    
-    import { toast } from "svelte-sonner";
 
-    export let form: ActionData
-
-    $: {
-        if(form?.accountDeletion?.success === false) {
-            toast.error("Account deletion failed", {
-                description: form?.accountDeletion?.message,
-            })
-        }
-    }
 </script>
 <div class="flex w-full max-w-screen-md h-fit border-b pt-4 pb-6 px-4 flex-col">
 	<div class="bg-white rounded-xl">
@@ -30,7 +16,7 @@
             <div class="flex h-full w-full flex-col">
         
                 <div class="w-full py-4 px-8">
-                    <form class="w-full" method="POST" action="?/deleteAccount" use:enhance>
+                    <div class="w-full">
                         <div class="flex flex-col items-center space-y-4 w-full">
                             <div class="grid w-full  items-center gap-1.5">
                                 <Label for="email" class="text-gray-800">After deleting your account, all the data that belong's to this account will be removed</Label>
@@ -41,7 +27,7 @@
                                 </DeleteAccountConfirmation>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 
             </div>

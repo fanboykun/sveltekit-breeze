@@ -14,7 +14,7 @@ const register: Action = async ({ cookies, request }) => {
     const data = await request.formData();
     const [ fails, result ] = createUserValidation(data)
 
-    if(fails) return fail(400, { message: 'Validation failed', errors: result })
+    if(fails) return fail(400, { message: 'Validation failed', errors: result, success: false })
     
     const newUser = await createUser({ 
             email: data.get('email') as string, 
@@ -22,7 +22,7 @@ const register: Action = async ({ cookies, request }) => {
             password: data.get('password') as string,      
         })
 
-    if(!newUser) return fail(500, { message: 'Failed to create user' })
+    if(!newUser) return fail(500, { message: 'Failed to create user', success: false })
     await createUserSession(newUser.id, cookies)
     redirect(302, "/dashboard");
 }

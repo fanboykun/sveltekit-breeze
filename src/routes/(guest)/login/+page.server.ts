@@ -15,13 +15,13 @@ const login: Action = async ({ cookies, request }) => {
     const data = await request.formData();
     const [ fails, result ] = loginUserValidation(data)
 
-    if(fails) return fail(400, { errors: result })
+    if(fails) return fail(400, { errors: result, success: false })
     
     const existingUser = await findUser(data)
-    if(!existingUser) return fail(500, { message: 'User does not exists' })
+    if(!existingUser) return fail(500, { message: 'User does not exists', success: false })
     // compare the password here
     if(!await new Argon2id().verify(existingUser.hashed_password, data.get('password') as string)) {
-        return fail(500, { message: 'Invalid password' })
+        return fail(500, { message: 'Invalid password', success: false })
     }
 
     await createUserSession(existingUser.id, cookies)

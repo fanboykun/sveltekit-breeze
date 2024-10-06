@@ -2,17 +2,28 @@
 	import DeleteAccount from '$lib/components/pages/profile/DeleteAccount.svelte';
 	import UpdatePasswordForm from '$lib/components/pages/profile/UpdatePasswordForm.svelte';
 	import UpdateProfileForm from '$lib/components/pages/profile/UpdateProfileForm.svelte';
+	import { toast } from 'svelte-sonner';
 	import type { ActionData, PageData } from './$types';
 
-	export let form: ActionData;
 	export let data: PageData;
+	export let form: ActionData
+
+	$: {
+      if(form?.success != undefined) {
+          let isSuccess = form.success as boolean
+          let toastMessage = isSuccess ? 'The Action Executed Successfully' : 'The Action Failed to Execute'
+          if(form.message && typeof form.message === 'string') toastMessage = form.message
+          isSuccess ? toast.success(toastMessage) : toast.error(toastMessage)
+      }
+  }
+
 </script>
 
 
 <div class="bg-gray-50 w-full h-full">
 
-	<UpdateProfileForm authUser={data.authUser} {form} />
-	<UpdatePasswordForm {form} />
-	<DeleteAccount {form}  />
+	<UpdateProfileForm authUser={data.authUser} />
+	<UpdatePasswordForm />
+	<DeleteAccount  />
 
 </div>
