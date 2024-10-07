@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { User } from "@prisma/client";
-	import Separator from "./Separator.svelte";
+	import Separator from "../../../../lib/components/layouts/dashboard/Separator.svelte";
 	import SideContent from "./SideContent.svelte";
 	import UpdateProfileForm from "./UpdateProfileForm.svelte";
 	import type { ActionData } from "../../../routes/(dashboard)/profile/$types";
